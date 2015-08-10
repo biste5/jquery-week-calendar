@@ -2155,9 +2155,15 @@
         * Rotate an array by specified number of places.
         */
       _rotate: function(a /*array*/, p /* integer, positive integer rotate to the right, negative to the left... */) {
-          for (var l = a.length, p = (Math.abs(p) >= l && (p %= l), p < 0 && (p += l), p), i, x; p; p = (Math.ceil(l / p) - 1) * p - l + (l = p)) {
-            for (i = l; i > p; x = a[--i], a[i] = a[i - p], a[i - p] = x) {}
-          }
+    	  // from http://stackoverflow.com/a/1985471/783004
+    	  var unshift = Array.prototype.unshift,
+          splice = Array.prototype.splice;
+
+          debugger;
+          var len = a.length >>> 0,
+              p = p >> 0;
+
+          unshift.apply(a, splice.call(a, p % len, len));
           return a;
       },
 
